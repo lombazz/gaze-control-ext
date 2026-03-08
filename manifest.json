@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Gaze Control",
+  "description": "Control your browser with eye gaze and hand gestures",
+  "version": "0.1.0",
+  "permissions": [
+    "offscreen",
+    "storage",
+    "activeTab",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "dist/background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["dist/content/content-script.js"],
+      "css": ["dist/content/cursor-overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "dist/popup/popup.html",
+    "default_icon": {
+      "16": "dist/assets/icons/icon16.png",
+      "48": "dist/assets/icons/icon48.png",
+      "128": "dist/assets/icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "dist/assets/icons/icon16.png",
+    "48": "dist/assets/icons/icon48.png",
+    "128": "dist/assets/icons/icon128.png"
+  },
+  "commands": {
+    "toggle-tracking": {
+      "suggested_key": {
+        "default": "Alt+G"
+      },
+      "description": "Toggle gaze tracking on/off"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

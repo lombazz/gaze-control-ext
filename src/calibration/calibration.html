@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Gaze Control - Calibration</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #1a1a2e;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    #instructions {
+      text-align: center;
+      max-width: 500px;
+      padding: 40px;
+    }
+    #instructions h1 { font-size: 28px; margin-bottom: 16px; }
+    #instructions p { font-size: 16px; color: #aaa; margin-bottom: 12px; line-height: 1.5; }
+    #startBtn {
+      margin-top: 24px;
+      padding: 14px 40px;
+      font-size: 16px;
+      background: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    #startBtn:hover { background: #3367d6; }
+
+    .calibration-dot {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #4285f4;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+      display: none;
+      z-index: 10;
+    }
+    .calibration-dot.active {
+      display: block;
+      animation: pulse-dot 1s ease-in-out infinite;
+    }
+    .calibration-dot.collecting {
+      background: #fbbc04;
+      animation: pulse-collect 0.5s ease-in-out infinite;
+    }
+    .calibration-dot.done {
+      background: #34a853;
+      animation: none;
+      width: 12px;
+      height: 12px;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+    }
+    @keyframes pulse-collect {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.5); }
+    }
+
+    #progress {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #888;
+      display: none;
+    }
+
+    #progressBar {
+      width: 200px;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    #progressFill {
+      height: 100%;
+      background: #4285f4;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    #result {
+      text-align: center;
+      display: none;
+    }
+    #result h2 { font-size: 24px; margin-bottom: 12px; color: #34a853; }
+    #result p { color: #aaa; margin-bottom: 20px; }
+    #doneBtn {
+      padding: 12px 32px;
+      font-size: 14px;
+      background: #34a853;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="instructions">
+    <h1>Gaze Calibration</h1>
+    <p>You'll see 9 dots appear on screen. Look directly at each dot and hold your gaze for 2 seconds.</p>
+    <p>Keep your head still and move only your eyes. Sit at a comfortable distance from the screen.</p>
+    <button id="startBtn">Start Calibration</button>
+  </div>
+
+  <div class="calibration-dot" id="calDot"></div>
+
+  <div id="progress">
+    <span id="progressText">Initializing...</span>
+    <div id="progressBar"><div id="progressFill"></div></div>
+  </div>
+
+  <div id="result">
+    <h2>Calibration Complete</h2>
+    <p>Your gaze tracking is now calibrated. You can close this tab.</p>
+    <button id="doneBtn">Done</button>
+  </div>
+
+  <script type="module" src="calibration.js"></script>
+</body>
+</html>

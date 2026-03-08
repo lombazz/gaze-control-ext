@@ -1,0 +1,34 @@
+<!-- Open this in a browser to generate icon PNGs, or use the base64 placeholders below -->
+<script>
+[16, 48, 128].forEach(size => {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  
+  // Blue circle background
+  ctx.fillStyle = '#4285f4';
+  ctx.beginPath();
+  ctx.arc(size/2, size/2, size/2 - 1, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // White eye shape
+  ctx.fillStyle = 'white';
+  ctx.beginPath();
+  ctx.ellipse(size/2, size/2, size*0.35, size*0.22, 0, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Dark iris
+  ctx.fillStyle = '#1a1a2e';
+  ctx.beginPath();
+  ctx.arc(size/2, size/2, size*0.12, 0, Math.PI * 2);
+  ctx.fill();
+  
+  const link = document.createElement('a');
+  link.download = `icon${size}.png`;
+  link.href = canvas.toDataURL();
+  link.textContent = `Download ${size}x${size}`;
+  document.body.appendChild(link);
+  document.body.appendChild(document.createElement('br'));
+});
+</script>

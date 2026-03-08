@@ -1,0 +1,58 @@
+/* Gaze cursor overlay */
+#gaze-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(66, 133, 244, 0.5);
+  border: 3px solid rgba(66, 133, 244, 0.9);
+  pointer-events: none;
+  z-index: 2147483647;
+  transform: translate(-50%, -50%);
+  transition: left 0.08s ease-out, top 0.08s ease-out;
+  display: none;
+  box-shadow: 0 0 16px rgba(66, 133, 244, 0.5), 0 0 4px rgba(66, 133, 244, 0.8);
+}
+
+#gaze-cursor.active {
+  display: block;
+}
+
+#gaze-cursor.clicking {
+  background: rgba(234, 67, 53, 0.6);
+  border-color: rgba(234, 67, 53, 0.9);
+  transform: translate(-50%, -50%) scale(1.5);
+  transition: transform 0.1s ease-out, background 0.1s ease-out;
+}
+
+/* Ripple effect on click */
+#gaze-cursor-ripple {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(234, 67, 53, 0.6);
+  pointer-events: none;
+  z-index: 2147483646;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+#gaze-cursor-ripple.animate {
+  animation: gaze-ripple 0.4s ease-out forwards;
+}
+
+@keyframes gaze-ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
